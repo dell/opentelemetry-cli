@@ -14,6 +14,7 @@ requirements = [
     "Click>=7.0",
     "opentelemetry-proto>=1.11.1",
     "opentelemetry-sdk>=1.11.1",
+    "opentelemetry-exporter-otlp>=1.11.1"
 ]
 
 test_requirements = [
@@ -32,6 +33,8 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     description="CLI for OpenTelemetry Traces and Metrics in Python",
     entry_points={
@@ -44,10 +47,10 @@ setup(
     include_package_data=True,
     keywords="otel-cli",
     name="otel-cli",
-    packages=find_packages(include=["otel-cli", "otel-cli.*"]),
+    packages=find_packages(include=["otel_cli", "otel_cli.*"]),
     test_suite="tests",
     tests_require=test_requirements,
-    url="https://github.com/MoshiBin/otel-cli",
+    url="https://eos2git.cec.lab.emc.com/binyam/otel-client-python",
     version="0.0.1",
     zip_safe=False,
 )
