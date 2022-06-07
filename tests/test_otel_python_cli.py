@@ -31,7 +31,29 @@ def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 0
-    assert 'otel-cli.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
+    assert "main" in result.output
+    help_result = runner.invoke(cli.main, ["--help"])
     assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+    assert "--help  Show this message and exit." in help_result.output
+
+
+def test_generate_trace_id():
+    """Test generating trace ID"""
+    runner = CliRunner()
+    result = runner.invoke(cli.generate_trace_id)
+    assert result.exit_code == 0
+    assert int(result.output.strip(), 16)
+    decimal_result = runner.invoke(cli.generate_trace_id, ["-d"])
+    assert decimal_result.exit_code == 0
+    assert decimal_result.output.strip().isdigit()
+
+
+def test_generate_span_id():
+    """Test generating span ID"""
+    runner = CliRunner()
+    result = runner.invoke(cli.generate_span_id)
+    assert result.exit_code == 0
+    assert int(result.output.strip(), 16)
+    decimal_result = runner.invoke(cli.generate_span_id, ["-d"])
+    assert decimal_result.exit_code == 0
+    assert decimal_result.output.strip().isdigit()
