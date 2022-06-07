@@ -4,6 +4,7 @@ from typing import Optional, Literal
 from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
 from opentelemetry.trace import SpanKind
+from opentelemetry.context import Context
 from opentelemetry.trace.span import SpanContext
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.resources import Resource
@@ -30,11 +31,11 @@ def create_span(
         "service.name": service_name,
         "service.version": service_version,
     })
-    trace.set_tracer_provider(TracerProvider(resource=resource))
+    # trace.set_tracer_provider()
     # trace.get_tracer_provider().add_span_processor(
     #     BatchSpanProcessor(ConsoleSpanExporter())
     # )
-    tracer = trace.get_tracer("otel-cli-python", __version__)
+    tracer = trace.get_tracer("otel-cli-python", __version__, TracerProvider(resource=resource))
 
     if trace_id is not None:
         tracer.id_generator.generate_trace_id = lambda: int(trace_id, 16)
@@ -42,7 +43,8 @@ def create_span(
     if span_id is not None:
         tracer.id_generator.generate_span_id = lambda: int(span_id, 16)
 
-    context = None
+    # Create a new context to avoid reusing context created by pytest
+    context = Context()
     if traceparent is not None:
         carrier = {"traceparent": traceparent}
         context = TraceContextTextMapPropagator().extract(carrier)
