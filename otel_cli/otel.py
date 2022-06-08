@@ -28,6 +28,7 @@ def create_span(
     span_id: Optional[str] = None,
     kind: Literal["client", "consumer", "internal", "producer", "server"] = "internal",
     traceparent: Optional[str] = None,
+    verbose: bool = False,
 ) -> Span:
     resource = Resource.create(attributes={
         "service.name": service_name,
@@ -36,6 +37,8 @@ def create_span(
     provider = TracerProvider(resource=resource)
     otlp_exporter = OTLPSpanExporter()
     provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
+    if verbose:
+        provider.add_span_processor(BatchSpanProcessor(ConsoleSpanExporter()))
     tracer = trace.get_tracer("otel-cli-python", __version__, tracer_provider=provider)
 
     if trace_id is not None:

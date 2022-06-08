@@ -18,7 +18,9 @@ def generate():
 
 
 @generate.command(name="trace_id")
-@click.option("-d", "--decimal", is_flag=True, default=False, help="Print in decimal base")
+@click.option(
+    "-d", "--decimal", is_flag=True, default=False, help="Print in decimal base"
+)
 def generate_trace_id(decimal):
     trace_id = RandomIdGenerator().generate_trace_id()
     if decimal:
@@ -28,7 +30,9 @@ def generate_trace_id(decimal):
 
 
 @generate.command(name="span_id")
-@click.option("-d", "--decimal", is_flag=True, default=False, help="Print in decimal base")
+@click.option(
+    "-d", "--decimal", is_flag=True, default=False, help="Print in decimal base"
+)
 def generate_span_id(decimal):
     span_id = RandomIdGenerator().generate_span_id()
     if decimal:
@@ -40,10 +44,17 @@ def generate_span_id(decimal):
 @main.command()
 @click.argument("span_name")
 @click.option("-s", "--service", default="otel-cli-python")
-@click.option("--start", type=int, help="Span start time in nanoseconds since the epoch")
+@click.option(
+    "--start", type=int, help="Span start time in nanoseconds since the epoch"
+)
 @click.option("--end", type=int, help="Span end time in nanoseconds since the epoch")
-def span(span_name, service, start, end):
-    create_span(span_name, service_name=service, start_time=start, end_time=end)
+@click.option(
+    "-v", "--verbose", is_flag=True, default=False, help="Print spans to stdout"
+)
+def span(span_name, service, start, end, verbose):
+    create_span(
+        span_name, service_name=service, start_time=start, end_time=end, verbose=verbose
+    )
 
 
 if __name__ == "__main__":
