@@ -54,7 +54,16 @@ def generate_span_id(decimal):
 @click.option("--tp", "--traceparent", help="Trace parent")
 @click.option("--span-id", help="Manually set span ID")
 @click.option("--trace-id", help="Manually set trace ID")
-def span(span_name, service, start, end, verbose, tp, span_id, trace_id):
+@click.option(
+    "-a",
+    "--attribute",
+    multiple=True,
+    help="Attributes in the format 'key=value'. "
+         "For multiple attributes use -a 'key1=val' -a 'key2=val'",
+)
+def span(span_name, service, start, end, verbose, tp, span_id, trace_id, attribute):
+    # Parse attribute to dict
+    attributes = dict([attr.split("=", 1) for attr in attribute])
     myspan = create_span(
         span_name,
         service_name=service,
@@ -63,6 +72,7 @@ def span(span_name, service, start, end, verbose, tp, span_id, trace_id):
         traceparent=tp,
         span_id=span_id,
         trace_id=trace_id,
+        attributes=attributes,
     )
     if verbose:
         print(myspan.to_json())

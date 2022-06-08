@@ -47,3 +47,16 @@ def test_create_span_with_traceparent():
     assert test_span.name == "test-span-name"
     assert test_span.context.trace_id == int("0af7651916cd43dd8448eb211c80319c", 16)
     assert test_span.context.span_id == int(sample_span_id, 16)
+
+
+def test_create_span_with_attributes():
+    attributes = {
+        "test.attr": "test",
+    }
+    test_span = otel.create_span(
+        "test-span-name",
+        service_name="test-service-name",
+        attributes=attributes,
+    )
+    assert test_span.name == "test-span-name"
+    assert test_span.attributes.get("test.attr") == "test"

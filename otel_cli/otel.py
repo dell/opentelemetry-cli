@@ -1,6 +1,6 @@
 from . import __version__
 
-from typing import Optional, Literal
+from typing import Optional, Literal, Mapping
 from time import time_ns
 from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
@@ -24,6 +24,7 @@ def create_span(
     span_id: Optional[str] = None,
     kind: Literal["client", "consumer", "internal", "producer", "server"] = "internal",
     traceparent: Optional[str] = None,
+    attributes: Mapping[str, str] = None,
 ) -> Span:
     resource = Resource.create(
         attributes={
@@ -56,7 +57,11 @@ def create_span(
 
     span_kind = SpanKind[kind.upper()]
     my_span = tracer.start_span(
-        span_name, start_time=start_time, kind=span_kind, context=context
+        span_name,
+        start_time=start_time,
+        kind=span_kind,
+        context=context,
+        attributes=attributes,
     )
     my_span.end(end_time=end_time)
     return my_span
