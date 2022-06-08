@@ -2,8 +2,6 @@
 
 """Tests for `otel-cli` package."""
 
-import pytest
-
 from opentelemetry.trace import SpanKind
 
 from otel_cli import otel
@@ -33,3 +31,17 @@ def test_create_span():
     assert f"{test_span.context.span_id:x}" == sample_span_id
     assert test_span.start_time == sample_start_time
     assert test_span.end_time == sample_end_time
+
+
+def test_create_span_with_traceparent():
+    """Test create_span with a traceparent provided"""
+    sample_span_id = "baff0450bf417425"
+    test_span = otel.create_span(
+        "test-span-name",
+        service_name="test-service-name",
+        service_version="0.0.1",
+        kind="internal",
+        span_id=sample_span_id,
+        traceparent="00-0af7651916cd43dd8448eb211c80319c-00f067aa0ba902b7-01",
+    )
+    assert test_span.name == "test-span-name"
