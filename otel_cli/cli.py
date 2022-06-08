@@ -9,12 +9,12 @@ from .otel import create_span
 
 @click.group()
 def main(args=None):
-    pass
+    pass  # pragma: no cover
 
 
 @main.group()
 def generate():
-    pass
+    pass  # pragma: no cover
 
 
 @generate.command(name="trace_id")
@@ -52,9 +52,11 @@ def generate_span_id(decimal):
     "-v", "--verbose", is_flag=True, default=False, help="Print spans to stdout"
 )
 def span(span_name, service, start, end, verbose):
-    create_span(
-        span_name, service_name=service, start_time=start, end_time=end, verbose=verbose
+    myspan = create_span(
+        span_name, service_name=service, start_time=start, end_time=end
     )
+    if verbose:
+        print(myspan.to_json())
 
 
 if __name__ == "__main__":
