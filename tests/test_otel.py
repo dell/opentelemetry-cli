@@ -3,6 +3,7 @@
 """Tests for `otel-cli` package."""
 
 from opentelemetry.trace import SpanKind
+from opentelemetry.trace.status import StatusCode
 
 from otel_cli import otel
 
@@ -60,3 +61,12 @@ def test_create_span_with_attributes():
     )
     assert test_span.name == "test-span-name"
     assert test_span.attributes.get("test.attr") == "test"
+
+
+def test_create_span_with_status():
+    test_span = otel.create_span(
+        "test-span-name",
+        service_name="test-service-name",
+        status_code="OK",
+    )
+    assert test_span._status.status_code is StatusCode.OK

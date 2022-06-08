@@ -61,20 +61,24 @@ def generate_span_id(decimal):
     help="Attributes in the format 'key=value'. "
          "For multiple attributes use -a 'key1=val' -a 'key2=val'",
 )
-def span(span_name, service, start, end, verbose, tp, span_id, trace_id, attribute):
+@click.option("--status", type=click.Choice(["UNSET", "OK", "ERROR"]), default="UNSET")
+@click.option("--message")
+def span(span_name, **kwargs):
     # Parse attribute to dict
-    attributes = dict([attr.split("=", 1) for attr in attribute])
+    attributes = dict([attr.split("=", 1) for attr in kwargs["attribute"]])
     myspan = create_span(
         span_name,
-        service_name=service,
-        start_time=start,
-        end_time=end,
-        traceparent=tp,
-        span_id=span_id,
-        trace_id=trace_id,
+        service_name=kwargs["service"],
+        start_time=kwargs["start"],
+        end_time=kwargs["end"],
+        traceparent=kwargs["tp"],
+        span_id=kwargs["span_id"],
+        trace_id=kwargs["trace_id"],
         attributes=attributes,
+        status_code=kwargs["status"],
+        status_message=kwargs["message"],
     )
-    if verbose:
+    if kwargs["verbose"]:
         print(myspan.to_json())
 
 

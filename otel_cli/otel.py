@@ -10,6 +10,8 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapPropagator
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.trace.status import Status, StatusCode
+
 
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
@@ -25,6 +27,8 @@ def create_span(
     kind: Literal["client", "consumer", "internal", "producer", "server"] = "internal",
     traceparent: Optional[str] = None,
     attributes: Mapping[str, str] = None,
+    status_code: Literal["UNSET", "OK", "ERROR"] = "UNSET",
+    status_message: Optional[str] = None,
 ) -> Span:
     resource = Resource.create(
         attributes={
@@ -56,6 +60,8 @@ def create_span(
         context = TraceContextTextMapPropagator().extract(carrier)
 
     span_kind = SpanKind[kind.upper()]
+    statuscode = StatusCode[status_code]
+    span_status = Status(statuscode, description=status_message)
     my_span = tracer.start_span(
         span_name,
         start_time=start_time,
@@ -63,5 +69,6 @@ def create_span(
         context=context,
         attributes=attributes,
     )
+    my_span._status = span_status
     my_span.end(end_time=end_time)
     return my_span
