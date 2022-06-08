@@ -45,3 +45,5 @@ def test_create_span_with_traceparent():
         traceparent="00-0af7651916cd43dd8448eb211c80319c-00f067aa0ba902b7-01",
     )
     assert test_span.name == "test-span-name"
+    assert test_span.context.trace_id == int("0af7651916cd43dd8448eb211c80319c", 16)
+    assert test_span.context.span_id == int(sample_span_id, 16)
