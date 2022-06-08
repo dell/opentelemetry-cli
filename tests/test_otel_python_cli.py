@@ -3,6 +3,7 @@
 """Tests for `otel-cli` package."""
 
 import pytest
+import json
 
 from click.testing import CliRunner
 
@@ -57,3 +58,12 @@ def test_generate_span_id():
     decimal_result = runner.invoke(cli.generate_span_id, ["-d"])
     assert decimal_result.exit_code == 0
     assert decimal_result.output.strip().isdigit()
+
+
+def test_send_span():
+    """Test sending a span"""
+    runner = CliRunner()
+    result = runner.invoke(cli.span, args=["my-span", "-v"])
+    assert result.exit_code == 0
+    span_data = json.loads(result.output)
+    assert span_data is not None
