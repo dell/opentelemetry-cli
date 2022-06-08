@@ -13,6 +13,7 @@ from opentelemetry.sdk.trace.export import (
     BatchSpanProcessor,
     ConsoleSpanExporter,
 )
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.trace.propagation import set_span_in_context
 
 
@@ -31,11 +32,10 @@ def create_span(
         "service.name": service_name,
         "service.version": service_version,
     })
-    # trace.set_tracer_provider()
-    # trace.get_tracer_provider().add_span_processor(
-    #     BatchSpanProcessor(ConsoleSpanExporter())
-    # )
-    tracer = trace.get_tracer("otel-cli-python", __version__, TracerProvider(resource=resource))
+    provider = TracerProvider(resource=resource)
+    otlp_exporter = OTLPSpanExporter()
+    provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
+    tracer = trace.get_tracer("otel-cli-python", __version__, tracer_provider=provider)
 
     if trace_id is not None:
         tracer.id_generator.generate_trace_id = lambda: int(trace_id, 16)

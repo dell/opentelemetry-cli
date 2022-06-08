@@ -4,6 +4,8 @@ import click
 
 from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
+from .otel import create_span
+
 
 @click.group()
 def main(args=None):
@@ -36,8 +38,9 @@ def generate_span_id(decimal):
 
 
 @main.command()
-def span():
-    pass
+@click.argument("span_name")
+def span(span_name):
+    create_span(span_name)
 
 
 if __name__ == "__main__":
