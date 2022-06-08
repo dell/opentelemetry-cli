@@ -51,9 +51,18 @@ def generate_span_id(decimal):
 @click.option(
     "-v", "--verbose", is_flag=True, default=False, help="Print spans to stdout"
 )
-def span(span_name, service, start, end, verbose):
+@click.option("--tp", "--traceparent", help="Trace parent")
+@click.option("--span-id", help="Manually set span ID")
+@click.option("--trace-id", help="Manually set trace ID")
+def span(span_name, service, start, end, verbose, tp, span_id, trace_id):
     myspan = create_span(
-        span_name, service_name=service, start_time=start, end_time=end
+        span_name,
+        service_name=service,
+        start_time=start,
+        end_time=end,
+        traceparent=tp,
+        span_id=span_id,
+        trace_id=trace_id,
     )
     if verbose:
         print(myspan.to_json())
