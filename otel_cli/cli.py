@@ -39,8 +39,11 @@ def generate_span_id(decimal):
 
 @main.command()
 @click.argument("span_name")
-def span(span_name):
-    create_span(span_name)
+@click.option("-s", "--service", default="otel-cli-python")
+@click.option("--start", type=int, help="Span start time in nanoseconds since the epoch")
+@click.option("--end", type=int, help="Span end time in nanoseconds since the epoch")
+def span(span_name, service, start, end):
+    create_span(span_name, service_name=service, start_time=start, end_time=end)
 
 
 if __name__ == "__main__":

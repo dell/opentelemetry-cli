@@ -1,6 +1,7 @@
 from . import __version__
 
 from typing import Optional, Literal
+from time import time_ns
 from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
 from opentelemetry.trace import SpanKind
@@ -43,6 +44,12 @@ def create_span(
     if span_id is not None:
         tracer.id_generator.generate_span_id = lambda: int(span_id, 16)
 
+    if start_time is None:
+        start_time = time_ns()
+
+    if end_time is None:
+        end_time = time_ns()
+
     # Create a new context to avoid reusing context created by pytest
     context = Context()
     if traceparent is not None:
@@ -53,6 +60,3 @@ def create_span(
     my_span = tracer.start_span(span_name, start_time=start_time, kind=span_kind, context=context)
     my_span.end(end_time=end_time)
     return my_span
-
-
-"00-f00df00d7e1d4947bd4ba6551cdaaf63-baff0450bf417425-01"
