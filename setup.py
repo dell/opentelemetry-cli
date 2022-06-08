@@ -14,7 +14,7 @@ requirements = [
     "Click>=7.0",
     "opentelemetry-proto>=1.11.1",
     "opentelemetry-sdk>=1.11.1",
-    "opentelemetry-exporter-otlp>=1.11.1"
+    "opentelemetry-exporter-otlp>=1.11.1",
 ]
 
 test_requirements = [
