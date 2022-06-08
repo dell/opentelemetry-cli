@@ -7,7 +7,6 @@ import json
 
 from click.testing import CliRunner
 
-from otel_cli import otel
 from otel_cli import cli
 
 

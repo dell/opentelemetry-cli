@@ -6,16 +6,12 @@ from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
 from opentelemetry.trace import SpanKind
 from opentelemetry.context import Context
-from opentelemetry.trace.span import SpanContext
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapPropagator
-from opentelemetry.sdk.trace.export import (
-    BatchSpanProcessor,
-    ConsoleSpanExporter,
-)
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.trace.propagation import set_span_in_context
 
 
 def create_span(
@@ -29,10 +25,12 @@ def create_span(
     kind: Literal["client", "consumer", "internal", "producer", "server"] = "internal",
     traceparent: Optional[str] = None,
 ) -> Span:
-    resource = Resource.create(attributes={
-        "service.name": service_name,
-        "service.version": service_version,
-    })
+    resource = Resource.create(
+        attributes={
+            "service.name": service_name,
+            "service.version": service_version,
+        }
+    )
     provider = TracerProvider(resource=resource)
     otlp_exporter = OTLPSpanExporter()
     provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
@@ -57,6 +55,8 @@ def create_span(
         context = TraceContextTextMapPropagator().extract(carrier)
 
     span_kind = SpanKind[kind.upper()]
-    my_span = tracer.start_span(span_name, start_time=start_time, kind=span_kind, context=context)
+    my_span = tracer.start_span(
+        span_name, start_time=start_time, kind=span_kind, context=context
+    )
     my_span.end(end_time=end_time)
     return my_span
