@@ -1,4 +1,4 @@
-# : human-friendly OpenTelemetry CLI
+# otel-client-python: human-friendly OpenTelemetry CLI
 
 Provides a CLI for crafting and sending telemetry data over OTLP (OpenTelemetry Line Protocol).
 
