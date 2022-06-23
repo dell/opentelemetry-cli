@@ -90,8 +90,19 @@ def metric():
 @metric.command()
 @click.argument("counter_name")
 @click.argument("amount", type=int, default=1)
+@click.option(
+    "-a",
+    "--attribute",
+    multiple=True,
+    help="Attributes in the format 'key=value'. "
+    "For multiple attributes use -a 'key1=val' -a 'key2=val'",
+)
 def counter(**kwargs):
-    create_counter(kwargs.get("counter_name"), kwargs.get("amount"))
+    # Parse attribute to dict
+    attributes = dict([attr.split("=", 1) for attr in kwargs["attribute"]])
+    create_counter(
+        kwargs.get("counter_name"), kwargs.get("amount"), attributes=attributes
+    )
 
 
 if __name__ == "__main__":

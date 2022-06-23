@@ -73,3 +73,21 @@ def test_send_counter():
     runner = CliRunner()
     result = runner.invoke(cli.main, args=["metric", "counter", "my-counter"])
     assert result.exit_code == 0
+
+
+def test_send_counter_multiple_attributes():
+    """Test sending a counter with multiple attributes"""
+    runner = CliRunner()
+    result = runner.invoke(
+        cli.main,
+        args=[
+            "metric",
+            "counter",
+            "my-counter",
+            "-a",
+            "test.foo=1",
+            "-a",
+            "test.bar=baz",
+        ],
+    )
+    assert result.exit_code == 0
