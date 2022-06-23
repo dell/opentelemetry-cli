@@ -1,0 +1,7 @@
+{
+  "project": {
+    "name": "otel-client-python",
+    "description": "A human-friendly OpenTelemetry CLI",
+    "version": "0.1.0"
+  }
+}

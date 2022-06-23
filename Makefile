@@ -90,3 +90,6 @@ docker: ## build docker image
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+changelog: ## Update CHANGELOG.md
+	npx gitmoji-changelog --preset generic
