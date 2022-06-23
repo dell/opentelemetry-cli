@@ -51,6 +51,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://eos2git.cec.lab.emc.com/binyam/otel-client-python",
-    version="0.0.1",
+    version="0.1.0",
     zip_safe=False,
 )
