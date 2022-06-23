@@ -11,9 +11,10 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapPropagator
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.trace.status import Status, StatusCode
-
-
+from opentelemetry.sdk._metrics import MeterProvider
+from opentelemetry.sdk._metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.grpc._metric_exporter import OTLPMetricExporter
 
 
 def create_span(
@@ -72,3 +73,29 @@ def create_span(
     my_span._status = span_status
     my_span.end(end_time=end_time)
     return my_span
+
+
+def create_counter(
+    counter_name: str,
+    value: int,
+    unit: str = "",
+    description: str = "",
+    attributes: Mapping[str, str] = None,
+    service_name: str = "otel-cli-python",
+    service_version: str = "0.0.1",
+):
+    resource = Resource.create(
+        attributes={
+            "service.name": service_name,
+            "service.version": service_version,
+        }
+    )
+    exporter = OTLPMetricExporter()
+    reader = PeriodicExportingMetricReader(exporter)
+    provider = MeterProvider(metric_readers=[reader], resource=resource)
+    meter = provider.get_meter("otel-cli-python", __version__)
+    counter = meter.create_counter(
+        name=counter_name, unit=unit, description=description
+    )
+    counter.add(amount=value, attributes=attributes)
+    return counter

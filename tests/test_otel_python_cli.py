@@ -66,3 +66,10 @@ def test_send_span():
     assert result.exit_code == 0
     span_data = json.loads(result.output)
     assert span_data is not None
+
+
+def test_send_counter():
+    """Test sending a counter"""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, args=["metric", "counter", "my-counter"])
+    assert result.exit_code == 0

@@ -4,7 +4,7 @@ import click
 
 from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
-from .otel import create_span
+from .otel import create_span, create_counter
 
 
 @click.group()
@@ -59,7 +59,7 @@ def generate_span_id(decimal):
     "--attribute",
     multiple=True,
     help="Attributes in the format 'key=value'. "
-         "For multiple attributes use -a 'key1=val' -a 'key2=val'",
+    "For multiple attributes use -a 'key1=val' -a 'key2=val'",
 )
 @click.option("--status", type=click.Choice(["UNSET", "OK", "ERROR"]), default="UNSET")
 @click.option("--message")
@@ -80,6 +80,18 @@ def span(span_name, **kwargs):
     )
     if kwargs["verbose"]:
         print(myspan.to_json())
+
+
+@main.group()
+def metric():
+    pass  # pragma: no cover
+
+
+@metric.command()
+@click.argument("counter_name")
+@click.argument("amount", type=int, default=1)
+def counter(**kwargs):
+    create_counter(kwargs.get("counter_name"), kwargs.get("amount"))
 
 
 if __name__ == "__main__":
