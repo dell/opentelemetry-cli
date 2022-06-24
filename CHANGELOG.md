@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="0.1.1"></a>
+## 0.1.1 (2022-06-24)
+
+### Added
+
+- ✨ Add attribute support to otel-cli metric counter [f7c060e]
+
+### Miscellaneous
+
+- 🔨 Makefile path fixes [b932c02]
+- 🔨 Change bump2version message and tag format [982533e]
+- 📝 Remove history, add readme &amp; changelog to pypi [89b77ac]
+- 📝 Add changelog, autogen by gitmoji-changelog [ce8d2e9]
+
+
 <a name="0.1.0"></a>
 ## 0.1.0 (2022-06-23)
 
