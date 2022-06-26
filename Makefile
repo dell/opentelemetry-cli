@@ -94,4 +94,4 @@ changelog: ## Update CHANGELOG.md
 	npx gitmoji-changelog --preset generic
 
 changelog-commit: changelog
-	git commit --amend -- CHANGELOG.md
+	git commit --amend --no-edit -- CHANGELOG.md
