@@ -39,6 +39,8 @@ For a local collector, set this to `http://127.0.0.1:4317` like so:
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
 ```
 
+### Spans
+
 To send a span, run:
 
 ```sh
@@ -66,7 +68,7 @@ otel-cli span --status OK "successful span"
 otel-cli span --status ERROR "failed span"
 ```
 
-To add attributes to spans, use the `--attribute|-a` option. It accepts attributes in a `key=value` format. Use multiple instances of this option to send multiple attributes:
+To add attributes to spans, use the `--attribute|-a` option. It accepts attributes in a `key=value` format. Use multiple instances of this option to send multiple attributes.
 
 ```sh
 otel-cli span -a "my.foo=bar" -a "my.bar=baz" "span name"
@@ -78,7 +80,7 @@ otel-cli will create a random trace ID and span ID. You can override those:
 otel-cli span --trace-id "4d999706756fd1859345f8dc6d0af218" --span-id "ac2a3b2b19ac602d"
 ```
 
-### Sending multiple spans in a trace
+#### Sending multiple spans in a trace
 
 To create a single trace with one root span and multiple child spans, we first need to generate a trace ID for the entire trace and a span ID for the parent span. Use `otel-cli generate` to create those:
 
@@ -99,4 +101,50 @@ Finally, send the parent span using the pre-generated IDs:
 
 ```sh
 otel-cli span --trace-id "$TRACE_ID" --span-id "$PARENT_SPAN" "Parent Span Name"
+```
+
+### Metrics
+
+Use `otel-cli metric` to send metric data. The following metric types are currently supported:
+
+- Counter
+
+#### Counter
+
+Counters are metrics that can count only up.
+By specifying just the counter name, it will be incremented by 1:
+
+```sh
+otel-cli metric counter my-counter
+```
+
+You can specify a different value to increase by. For example, this will increase the counter by 1024:
+
+```sh
+otel-cli metric counter total-bytes 1024
+```
+
+Counters support attributes just like spans, using the `-a|--attribute` option.
+
+```sh
+otel-cli metric counter my-counter -a "host.name=localhost"
+```
+
+By default, attributes are strings. You can set them to other types by using one of the following prefixes:
+
+- `int:` - value will be converted to an integer.
+- `float:` - value will be converted to a floating point number.
+- `bool:` - value will be converted to a boolean.
+  - Values of `y`, `yes`, `t`, `true`, `on`, and `1` are converted to `True`.
+  - Values of `n`, `no`, `f`, `false`, `off`, and `0` are converted to `False`.
+  - Values are __not__ case-sensitive.
+
+Example:
+
+```sh
+otel-cli metric counter my-counter \
+    -a "key1=just a string" \
+    -a "int:key2=10" \
+    -a "float:key3=3.14" \
+    -a "bool:key4=YES"
 ```
