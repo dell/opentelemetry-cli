@@ -5,6 +5,7 @@ import click
 from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
 from .otel import create_span, create_counter
+from .utils import parse_attributes
 
 
 @click.group()
@@ -95,11 +96,14 @@ def metric():
     "--attribute",
     multiple=True,
     help="Attributes in the format 'key=value'. "
-    "For multiple attributes use -a 'key1=val' -a 'key2=val'",
+    "For multiple attributes use -a 'key1=val' -a 'key2=val'"
+    "Attributes are strings by default. To convert to other types, use these prefixes:"
+    "  'int:' -> Convert to a number (e.g. int:key=100)"
+    "  'float:' -> Convert to a float (e.g. float:key=0.1)",
 )
 def counter(**kwargs):
     # Parse attribute to dict
-    attributes = dict([attr.split("=", 1) for attr in kwargs["attribute"]])
+    attributes = parse_attributes(kwargs["attribute"])
     create_counter(
         kwargs.get("counter_name"), kwargs.get("amount"), attributes=attributes
     )

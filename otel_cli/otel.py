@@ -1,6 +1,6 @@
 from . import __version__
 
-from typing import Optional, Literal, Mapping
+from typing import Optional, Literal, Mapping, Union
 from time import time_ns
 from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
@@ -80,7 +80,7 @@ def create_counter(
     value: int,
     unit: str = "",
     description: str = "",
-    attributes: Mapping[str, str] = None,
+    attributes: Mapping[str, Union[int, str, float, bool]] = None,
     service_name: str = "otel-cli-python",
     service_version: str = "0.0.1",
 ):
