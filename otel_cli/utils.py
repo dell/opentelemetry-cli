@@ -6,15 +6,11 @@ def remove_prefix(val: str, prefix: str):
     Return val with the given prefix string removed if present.
 
     If prefix does not exist in string, return a copy of the original string.
-    Will use str.removeprefix if available (Python 3.9+).
     """
-    if hasattr(val, "removeprefix"):
-        return val.removeprefix(prefix)
+    if val.startswith(prefix):
+        return val[len(prefix) :]
     else:
-        if val.startswith(prefix):
-            return val[len(prefix) :]
-        else:
-            return val
+        return val
 
 
 def strtobool(val: str) -> bool:
