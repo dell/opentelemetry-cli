@@ -1,5 +1,6 @@
 .PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8 lint/black
 .DEFAULT_GOAL := help
+SHELL=/bin/bash
 
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -95,3 +96,6 @@ changelog: ## Update CHANGELOG.md
 
 changelog-commit: changelog
 	git commit --amend --no-edit -- CHANGELOG.md
+
+github-release:
+	gh release create -F <(sed '1,/^<a name="'$$TAG'">/d;/^<a /,$$d' CHANGELOG.md) $$TAG
