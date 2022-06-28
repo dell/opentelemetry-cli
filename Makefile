@@ -24,6 +24,8 @@ export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
+TAG := $(shell awk -F "=" '/^current_version/ {print $$2}' setup.cfg | tr -d ' ')
+
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
@@ -98,4 +100,4 @@ changelog-commit: changelog
 	git commit --amend --no-edit -- CHANGELOG.md
 
 github-release:
-	gh release create -F <(sed '1,/^<a name="'$$TAG'">/d;/^<a /,$$d' CHANGELOG.md) $$TAG
+	gh release create -F <(sed '1,/^<a name="'$(TAG)'">/d;/^<a /,$$d' CHANGELOG.md) $(TAG)
