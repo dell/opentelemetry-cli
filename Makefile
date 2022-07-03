@@ -87,8 +87,8 @@ dist: clean ## builds source and wheel package
 	python setup.py bdist_wheel
 	ls -l dist
 
-docker: ## build docker image
-	docker build .
+docker: clean ## build docker image
+	docker build . -t otel-cli-python:$(TAG)
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
