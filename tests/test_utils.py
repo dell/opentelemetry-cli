@@ -14,13 +14,15 @@ def test_remove_prefix(monkeypatch):
 
 
 def test_parse_attributes():
-    attributes = utils.parse_attributes([
-        "key1=value",
-        "int:key2=100",
-        "float:key3=0.1",
-        "bool:key4=yes",
-        "bool:key5=0",
-    ])
+    attributes = utils.parse_attributes(
+        [
+            "key1=value",
+            "int:key2=100",
+            "float:key3=0.1",
+            "bool:key4=yes",
+            "bool:key5=0",
+        ]
+    )
     assert attributes["key1"] == "value"
     assert type(attributes["key2"]) is int
     assert attributes["key2"] == 100
