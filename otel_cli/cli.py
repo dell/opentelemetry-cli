@@ -6,6 +6,7 @@ from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
 from .otel import create_span, create_counter
 from .utils import parse_attributes
+from .cli_helpers import attribute_opt
 
 
 @click.group()
@@ -55,18 +56,12 @@ def generate_span_id(decimal):
 @click.option("--tp", "--traceparent", help="Trace parent")
 @click.option("--span-id", help="Manually set span ID")
 @click.option("--trace-id", help="Manually set trace ID")
-@click.option(
-    "-a",
-    "--attribute",
-    multiple=True,
-    help="Attributes in the format 'key=value'. "
-    "For multiple attributes use -a 'key1=val' -a 'key2=val'",
-)
+@attribute_opt
 @click.option("--status", type=click.Choice(["UNSET", "OK", "ERROR"]), default="UNSET")
 @click.option("--message")
 def span(span_name, **kwargs):
     # Parse attribute to dict
-    attributes = dict([attr.split("=", 1) for attr in kwargs["attribute"]])
+    attributes = parse_attributes(kwargs["attribute"])
     myspan = create_span(
         span_name,
         service_name=kwargs["service"],
@@ -91,20 +86,7 @@ def metric():
 @metric.command()
 @click.argument("counter_name")
 @click.argument("amount", type=int, default=1)
-@click.option(
-    "-a",
-    "--attribute",
-    multiple=True,
-    help="Attributes in the format 'key=value'. "
-    "For multiple attributes use -a 'key1=val' -a 'key2=val'"
-    "Attributes are strings by default. To convert to other types, use these prefixes:"
-    "  'int:' -> Convert to a number (e.g. int:key=100)"
-    "  'float:' -> Convert to a float (e.g. float:key=0.1)"
-    "  'bool:' -> Convert to a bool (e.g. bool:key=true)"
-    "    True values are 'y', 'yes', 't', 'true', 'on', '1'"
-    "    False values are 'n', 'no', 'f', 'false', 'off', '0'"
-    "    Values are case-insensitive.",
-)
+@attribute_opt
 def counter(**kwargs):
     # Parse attribute to dict
     attributes = parse_attributes(kwargs["attribute"])
