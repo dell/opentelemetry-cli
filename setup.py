@@ -39,7 +39,7 @@ setup(
     description="CLI for OpenTelemetry Traces and Metrics in Python",
     entry_points={
         "console_scripts": [
-            "otel-cli=otel_cli.cli:main",
+            "otel=otel_cli.cli:main",
         ],
     },
     install_requires=requirements,
