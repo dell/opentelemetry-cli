@@ -20,7 +20,7 @@ from opentelemetry.exporter.otlp.proto.grpc._metric_exporter import OTLPMetricEx
 def create_span(
     span_name: str,
     service_name: str = "otel-cli-python",
-    service_version: str = "0.0.1",
+    service_version: str = __version__,
     start_time: Optional[int] = None,
     end_time: Optional[int] = None,
     trace_id: Optional[str] = None,
@@ -82,7 +82,7 @@ def create_counter(
     description: str = "",
     attributes: Mapping[str, Union[int, str, float, bool]] = None,
     service_name: str = "otel-cli-python",
-    service_version: str = "0.0.1",
+    service_version: str = __version__,
 ):
     resource = Resource.create(
         attributes={
