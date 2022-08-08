@@ -148,3 +148,6 @@ otel-cli metric counter my-counter \
     -a "float:key3=3.14" \
     -a "bool:key4=YES"
 ```
+
+## Packaging
+This project uses [poetry](https://python-poetry.org/) to manage dependencies, build, etc.

@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "otel-cli"
+version = "0.1.2"
+description = "CLI for OpenTelemetry Traces and Metrics in Python"
+authors = ["Moshi Binyamini <moshi.binyamini@dell.com>"]
+readme = "README.md"
+packages = [{include = "otel_cli"}]
+classifiers=[
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Environment :: Console",
+    "Topic :: System :: Monitoring",
+    "Topic :: Utilities"
+]
+
+[tool.poetry.scripts]
+otel = "otel_cli.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+Click = "^7.0"
+opentelemetry-proto = "^1.11.0"
+opentelemetry-sdk = "^1.11.0"
+opentelemetry-exporter-otlp = "^1.11.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+bump2version = "^1.0.1"
+pytest-otel = "^1.1.1"
+pytest-cov = "^3.0.0"
+Sphinx = "^5.0.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "--cov=otel_cli --ignore=setup.py --otel-session-name \"Test otel-client-python\" --otel-service-name \"pytest otel_cli\""
