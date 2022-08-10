@@ -1,7 +1,7 @@
 from . import __version__
 
 from typing import Optional, Mapping, Union
-from time import time_ns
+from .compat import time_ns
 from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
 from opentelemetry.trace import SpanKind
@@ -18,7 +18,7 @@ from opentelemetry.exporter.otlp.proto.grpc._metric_exporter import OTLPMetricEx
 
 try:
     from typing import Literal
-except ImportError:
+except ImportError:  # pragma: no cover
     from typing_extensions import Literal
 
 
