@@ -34,7 +34,6 @@ typing-extensions = {version = "~4.1.1", python = "<3.8"}
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 bump2version = "^1.0.1"
-pytest-otel = "^1.1.1"
 pytest-cov = "^3.0.0"
 Sphinx = "^5.0.2"
 
@@ -43,4 +42,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--cov=otel_cli --ignore=setup.py --otel-session-name \"Test otel-client-python\" --otel-service-name \"pytest otel_cli\""
+addopts = "--cov=otel_cli"

@@ -452,23 +452,6 @@ pytest = ">=4.6"
 testing = ["virtualenv", "pytest-xdist", "six", "process-tests", "hunter", "fields"]
 
 [[package]]
-name = "pytest-otel"
-version = "1.1.1"
-description = "pytest-otel report OpenTelemetry traces about test executed"
-category = "dev"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-opentelemetry-api = "1.11.0"
-opentelemetry-exporter-otlp = "1.11.0"
-opentelemetry-sdk = "1.11.0"
-pytest = ">=5"
-
-[package.extras]
-test = ["coverage (>=5)"]
-
-[[package]]
 name = "pytz"
 version = "2022.1"
 description = "World timezone definitions, modern and historical"
@@ -673,7 +656,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "d6c745e1c0cca786df4a67097039ba27df9feaee16efb15a1cf25c451b26661e"
+content-hash = "7a99d9ed42d1a31a546c051f6e20c0fd724e416f5cbc848787701a772d142fbb"
 
 [metadata.files]
 aiocontextvars = [
@@ -1060,10 +1043,6 @@ pytest = [
 pytest-cov = [
     {file = "pytest-cov-3.0.0.tar.gz", hash = "sha256:e7f0f5b1617d2210a2cabc266dfe2f4c75a8d32fb89eafb7ad9d06f6d076d470"},
     {file = "pytest_cov-3.0.0-py3-none-any.whl", hash = "sha256:578d5d15ac4a25e5f961c938b85a05b09fdaae9deef3bb6de9a6e766622ca7a6"},
-]
-pytest-otel = [
-    {file = "pytest_otel-1.1.1-py2.py3-none-any.whl", hash = "sha256:c65de0984f9acbc5c04c31656e470cacd1ac2453943769d20907fb05fe5482d7"},
-    {file = "pytest_otel-1.1.1.tar.gz", hash = "sha256:d3f20c0a1d72e08456923713eb94010ab08c58cc6103c0b80fa920c590be275b"},
 ]
 pytz = [
     {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
