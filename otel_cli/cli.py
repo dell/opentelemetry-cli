@@ -4,12 +4,14 @@ import click
 
 from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
+from . import __version__
 from .otel import create_span, create_counter
 from .utils import parse_attributes
 from .cli_helpers import attribute_opt
 
 
 @click.group()
+@click.version_option(__version__, "-V", "--version")
 def main(args=None):
     pass  # pragma: no cover
 
