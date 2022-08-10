@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "otel-cli"
-version = "0.1.2"
+version = "0.1.3"
 description = "CLI for OpenTelemetry Traces and Metrics in Python"
 authors = ["Moshi Binyamini <moshi.binyamini@dell.com>"]
 readme = "README.md"
