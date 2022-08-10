@@ -1,6 +1,6 @@
 from . import __version__
 
-from typing import Optional, Literal, Mapping, Union
+from typing import Optional, Mapping, Union
 from time import time_ns
 from opentelemetry import trace
 from opentelemetry.sdk.trace import Span
@@ -15,6 +15,11 @@ from opentelemetry.sdk._metrics import MeterProvider
 from opentelemetry.sdk._metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.exporter.otlp.proto.grpc._metric_exporter import OTLPMetricExporter
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 
 def create_span(
