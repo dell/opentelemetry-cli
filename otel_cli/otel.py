@@ -11,10 +11,10 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapPropagator
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.trace.status import Status, StatusCode
-from opentelemetry.sdk._metrics import MeterProvider
-from opentelemetry.sdk._metrics.export import PeriodicExportingMetricReader
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.exporter.otlp.proto.grpc._metric_exporter import OTLPMetricExporter
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 
 try:
     from typing import Literal
