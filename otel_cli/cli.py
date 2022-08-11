@@ -5,7 +5,7 @@ import click
 from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
 from . import __version__
-from .otel import create_span, create_counter
+from .otel import create_span, create_counter, CounterTypes
 from .utils import parse_attributes
 from .cli_helpers import attribute_opt
 
@@ -93,7 +93,25 @@ def counter(**kwargs):
     # Parse attribute to dict
     attributes = parse_attributes(kwargs["attribute"])
     create_counter(
-        kwargs.get("counter_name"), kwargs.get("amount"), attributes=attributes
+        counter_type=CounterTypes.NORMAL,
+        counter_name=kwargs.get("counter_name"),
+        value=kwargs.get("amount"),
+        attributes=attributes,
+    )
+
+
+@metric.command(context_settings={"ignore_unknown_options": True})
+@click.argument("counter_name")
+@click.argument("amount", type=int, default=1)
+@attribute_opt
+def updown(**kwargs):
+    # Parse attribute to dict
+    attributes = parse_attributes(kwargs["attribute"])
+    create_counter(
+        counter_type=CounterTypes.UPDOWN,
+        counter_name=kwargs.get("counter_name"),
+        value=kwargs.get("amount"),
+        attributes=attributes,
     )
 
 

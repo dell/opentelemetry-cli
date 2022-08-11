@@ -1,5 +1,6 @@
 from . import __version__
 
+from enum import Enum
 from typing import Optional, Mapping, Union
 from .compat import time_ns
 from opentelemetry import trace
@@ -20,6 +21,11 @@ try:
     from typing import Literal
 except ImportError:  # pragma: no cover
     from typing_extensions import Literal
+
+
+class CounterTypes(Enum):
+    NORMAL = 1
+    UPDOWN = 2
 
 
 def create_span(
@@ -85,6 +91,7 @@ def create_counter(
     value: int,
     unit: str = "",
     description: str = "",
+    counter_type: CounterTypes = CounterTypes.NORMAL,
     attributes: Mapping[str, Union[int, str, float, bool]] = None,
     service_name: str = "otel-cli-python",
     service_version: str = __version__,
@@ -99,8 +106,15 @@ def create_counter(
     reader = PeriodicExportingMetricReader(exporter)
     provider = MeterProvider(metric_readers=[reader], resource=resource)
     meter = provider.get_meter("otel-cli-python", __version__)
-    counter = meter.create_counter(
-        name=counter_name, unit=unit, description=description
-    )
+    if counter_type is CounterTypes.NORMAL:
+        create_counter = meter.create_counter
+    elif counter_type is CounterTypes.UPDOWN:
+        create_counter = meter.create_up_down_counter
+    else:
+        raise ValueError(
+            f"Got unexpected counter_type: {counter_type}."
+            f"Expected one of: {list(CounterTypes)}"
+        )
+    counter = create_counter(name=counter_name, unit=unit, description=description)
     counter.add(amount=value, attributes=attributes)
     return counter
