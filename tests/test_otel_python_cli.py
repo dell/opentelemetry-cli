@@ -91,3 +91,17 @@ def test_send_counter_multiple_attributes():
         ],
     )
     assert result.exit_code == 0
+
+
+def test_send_updown_counter():
+    """Test sending an updown counter"""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, args=["metric", "updown", "my-counter"])
+    assert result.exit_code == 0
+
+
+def test_send_updown_counter_negative():
+    """Test sending an updown counter with a negative value"""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, args=["metric", "updown", "my-counter", "-1"])
+    assert result.exit_code == 0
