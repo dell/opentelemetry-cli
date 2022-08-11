@@ -108,6 +108,7 @@ otel-cli span --trace-id "$TRACE_ID" --span-id "$PARENT_SPAN" "Parent Span Name"
 Use `otel-cli metric` to send metric data. The following metric types are currently supported:
 
 - Counter
+- UpDownCounter
 
 #### Counter
 
@@ -147,6 +148,27 @@ otel-cli metric counter my-counter \
     -a "int:key2=10" \
     -a "float:key3=3.14" \
     -a "bool:key4=YES"
+```
+
+#### UpDownCounter
+
+UpDownCounters are metrics that count up or down.
+If not given a value, the UpDownCounter will increment by one:
+
+```sh
+otel metric updown queue-length
+```
+
+You can specify a different value to increase by. For example, this will increase the counter by 1024:
+
+```sh
+otel metric updown my-updowncounter 1024
+```
+
+To decrease the counter number, pass a negative number like so:
+
+```sh
+otel metric updown queue-length -1
 ```
 
 ## Packaging
