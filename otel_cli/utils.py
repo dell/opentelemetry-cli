@@ -1,3 +1,4 @@
+import re
 from typing import Union, Mapping, Iterable
 
 
@@ -29,30 +30,59 @@ def strtobool(val: str) -> bool:
         raise ValueError(f"Unable to parse '{val!r}' as boolean")
 
 
-def parse_attributes(attrs: Iterable[str]) -> Mapping[str, Union[str, int]]:
+_attribute_casting = {
+    "int": int,
+    "float": float,
+    "bool": strtobool,
+    "str": str,
+}
+
+
+def parse_attributes(attrs: Iterable[str]) -> Mapping[str, Union[str, int, list]]:
     """
     Attempt to parse attributes in a given list `attrs`.
     Special handling is done for attributes which begin with these prefixes:
+        'str:' -> Value will be converted to string using str() (default)
         'int:' -> Value will be converted to integer using int()
         'float:' -> Value will be converted to float using float()
         'bool:' -> Value will be converted to bool.
                    True values are 'y', 'yes', 't', 'true', 'on', and '1'
                    False values are 'n', 'no', 'f', 'false', 'off', and '0'.
+
+    In order to pass multiple values, add "[]" to the prefix like so:
+        'int[]:my-array=1,2,3,4'
+
+    You can customize the separator like so:
+        'int[sep=;]:my-array=1;2;3;4'
+        'str[sep=:]:path-array=/usr/bin:/bin'
     """
+    attr_pattern = re.compile(r"^(?:(?P<prefix>.*):)?(?P<name>[^=]*)=(?P<value>.*)$")
+    prefix_pattern = re.compile(
+        r"^(?P<type>[^\[\n]*)(?P<array>\[(sep=?(?P<sep>.))?.*\])?$"
+    )
     attributes = {}
     for attr in attrs:
-        if attr.startswith("int:"):
-            key, value = remove_prefix(attr, "int:").split("=", 1)
-            value = int(value)
-        elif attr.startswith("float:"):
-            key, value = remove_prefix(attr, "float:").split("=", 1)
-            value = float(value)
-        elif attr.startswith("bool:"):
-            key, value = remove_prefix(attr, "bool:").split("=", 1)
-            value = strtobool(value)
-        elif attr.startswith("str:"):
-            key, value = remove_prefix(attr, "str:").split("=", 1)
-        else:
-            key, value = attr.split("=", 1)
-        attributes[key] = value
+        attr_match = attr_pattern.match(attr)
+        if attr_match is None:
+            raise ValueError(f"Unable to parse attribute: {attr}")
+
+        prefix, key, value = attr_match.group("prefix", "name", "value")
+
+        if prefix is None:
+            attributes[key] = value
+            continue
+
+        prefix_match = prefix_pattern.match(prefix)
+        prefix_type = prefix_match.group("type")
+        cast_function = _attribute_casting.get(prefix_type, lambda x: x)
+
+        if prefix_match.group("array") is None:
+            attributes[key] = cast_function(value)
+            continue
+
+        value_separator = prefix_match.group("sep") or ","
+        attributes[key] = tuple(
+            [cast_function(item) for item in value.split(value_separator)]
+        )
+
     return attributes

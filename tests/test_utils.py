@@ -22,6 +22,9 @@ def test_parse_attributes():
             "bool:key4=yes",
             "bool:key5=0",
             "str:key6=hello",
+            "int[]:multival1=1,2,3,4",
+            "bool[sep=;]:multival2=yes;no;true;false",
+            "str:myflag=myvar=true",
         ]
     )
     assert attributes["key1"] == "value"
@@ -34,9 +37,18 @@ def test_parse_attributes():
     assert attributes["key4"] is True
     assert attributes["key5"] is False
     assert attributes["key6"] == "hello"
+    assert attributes["multival1"] == (1, 2, 3, 4)
+    assert attributes["multival2"] == (True, False, True, False)
+    assert attributes["myflag"] == "myvar=true"
 
     with pytest.raises(ValueError):
         utils.parse_attributes(["int:key=NotANumber"])
 
     with pytest.raises(ValueError):
         utils.parse_attributes(["bool:key=NotABool"])
+
+    with pytest.raises(ValueError):
+        utils.parse_attributes(["int[]:my-array=bla"])
+
+    with pytest.raises(ValueError):
+        utils.parse_attributes(["invalid"])
