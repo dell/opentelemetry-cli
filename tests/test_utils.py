@@ -21,6 +21,7 @@ def test_parse_attributes():
             "float:key3=0.1",
             "bool:key4=yes",
             "bool:key5=0",
+            "str:key6=hello",
         ]
     )
     assert attributes["key1"] == "value"
@@ -32,6 +33,7 @@ def test_parse_attributes():
     assert type(attributes["key5"]) is bool
     assert attributes["key4"] is True
     assert attributes["key5"] is False
+    assert attributes["key6"] == "hello"
 
     with pytest.raises(ValueError):
         utils.parse_attributes(["int:key=NotANumber"])
