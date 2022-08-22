@@ -50,6 +50,8 @@ def parse_attributes(attrs: Iterable[str]) -> Mapping[str, Union[str, int]]:
         elif attr.startswith("bool:"):
             key, value = remove_prefix(attr, "bool:").split("=", 1)
             value = strtobool(value)
+        elif attr.startswith("str:"):
+            key, value = remove_prefix(attr, "str:").split("=", 1)
         else:
             key, value = attr.split("=", 1)
         attributes[key] = value
