@@ -1,5 +1,32 @@
 # Changelog
 
+<a name="0.2.0"></a>
+## 0.2.0 (2022-08-24)
+
+### Added
+
+- ✨ Add support for array attributes Fixes #7 [d60fb6b]
+- ✅ Include &#x60;str:&#x60; attribute prefix in tests [b8cf709]
+- ✨ Support str: prefix for attributes Fixes #6 [6d5c574]
+- ✅ Add tests for updown counter from CLI [f19c923]
+- ✅ Add tests for updown counters [13dffb8]
+- ✨ Add UpDownCounter support to otel-cli metrics Fixes #5 [af94026]
+
+### Changed
+
+- ⬆️ Bump opentelemetry libs to 1.12.0 [8707340]
+
+### Removed
+
+- ➖ Remove mypy pre-commit hook [09428c8]
+- ➖ Remove pytest-otel [a93f4f9]
+
+### Miscellaneous
+
+- 📝 Update command name in docs to &quot;otel&quot; [fe32825]
+- 📝 Add documentation about updown counters [3053e6f]
+
+
 <a name="0.1.3"></a>
 ## 0.1.3 (2022-08-10)
 
