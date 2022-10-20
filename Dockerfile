@@ -1,4 +1,4 @@
-FROM afeoscyc-mw.cec.lab.emc.com/python:3.10.5-alpine
+FROM docker.io/library/python:3.10.5-alpine
 
 WORKDIR /app
 COPY . /app/
