@@ -32,7 +32,7 @@ opentelemetry-exporter-otlp = "^1.12.0"
 typing-extensions = {version = "~4.1.1", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
+pytest = "^7.0.0"
 bump2version = "^1.0.1"
 pytest-cov = "^3.0.0"
 Sphinx = "^5.0.2"
