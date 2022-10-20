@@ -11,7 +11,7 @@ There are several ways of running this CLI.
 ### Docker
 
 ```sh
-docker pull afeoscyc-mw.cec.lab.emc.com/otel-cli-python:<version>
+docker pull ghcr.io/dell/otel-cli-python:<version>
 ```
 
 You can specify a version like `0.0.1` or use `latest` to get the most up-to-date version.
