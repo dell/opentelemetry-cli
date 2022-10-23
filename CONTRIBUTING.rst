@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/MoshiBin/otel-cli/issues.
+The best way to send feedback is to file an issue at https://github.com/dell/opentelemetry-cli/issues.
 
 If you are proposing a feature:
 
@@ -57,17 +57,17 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `otel-cli` for local development.
+Ready to contribute? Here's how to set up `opentelemetry-cli` for local development.
 
-1. Fork the `otel-cli` repo on GitHub.
+1. Fork the `opentelemetry-cli` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/otel-cli.git
+    $ git clone git@github.com:your_name_here/opentelemetry-cli.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv otel-cli
-    $ cd otel-cli/
+    $ mkvirtualenv opentelemetry-cli
+    $ cd opentelemetry-cli/
     $ python setup.py develop
 
 4. Create a branch for local development::
@@ -80,7 +80,7 @@ Ready to contribute? Here's how to set up `otel-cli` for local development.
    tests, including testing other Python versions with tox::
 
     $ flake8 otel-cli tests
-    $ python setup.py test or pytest
+    $ pytest
     $ tox
 
    To get flake8 and tox, just pip install them into your virtualenv.
@@ -88,7 +88,7 @@ Ready to contribute? Here's how to set up `otel-cli` for local development.
 6. Commit your changes and push your branch to GitHub::
 
     $ git add .
-    $ git commit -m "Your detailed description of your changes."
+    $ git commit -m "🐛 Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
 7. Submit a pull request through the GitHub website.
@@ -105,14 +105,8 @@ Before you submit a pull request, check that it meets these guidelines:
 3. The pull request should work for Python 3.5, 3.6, 3.7 and 3.8, and for PyPy. Check
    https://travis-ci.com/MoshiBin/otel-cli/pull_requests
    and make sure that the tests pass for all supported Python versions.
-
-Tips
-----
-
-To run a subset of tests::
-
-$ pytest tests.test_otel-cli
-
+4. Commit messages must be prefixed with the appropriate gitmoji. For more information,
+   check https://gitmoji.dev/
 
 Deploying
 ---------
@@ -122,7 +116,11 @@ Make sure all your changes are committed (including an entry in HISTORY.rst).
 Then run::
 
 $ bump2version patch # possible: major / minor / patch
-$ git push
+$ make changelog-commit
+$ git tag $(TAG)
 $ git push --tags
+$ make release
+$ make github-release
+$ make docker
 
-Travis will then deploy to PyPI if tests pass.
+Then push the resulting image to the Docker registry.

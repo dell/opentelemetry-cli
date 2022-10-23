@@ -1,4 +1,4 @@
-# otel-client-python: human-friendly OpenTelemetry CLI
+# opentelemetry-cli: human-friendly OpenTelemetry CLI
 
 Provides a CLI for crafting and sending telemetry data over OTLP (OpenTelemetry Line Protocol).
 
@@ -11,17 +11,17 @@ There are several ways of running this CLI.
 ### Docker
 
 ```sh
-docker pull afeoscyc-mw.cec.lab.emc.com/otel-cli-python:<version>
+docker pull opentelemetry-cli:<version>
 ```
 
-You can specify a version like `0.0.1` or use `latest` to get the most up-to-date version.
+You can specify a version like `0.2.0` or use `latest` to get the most up-to-date version.
 
 Run latest version of the CLI in a container:
 
 ```sh
 # set OTEL_EXPORTER_OTLP_ENDPOINT to your OTel collector instance
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
-docker run --rm -e OTEL_EXPORTER_OTLP_ENDPOINT afeoscyc-mw.cec.lab.emc.com/otel-cli-python:latest --help
+docker run --rm -e OTEL_EXPORTER_OTLP_ENDPOINT opentelemetry-cli:latest --help
 ```
 
 Replace `--help` with any `otel` command, without `otel` itself.
