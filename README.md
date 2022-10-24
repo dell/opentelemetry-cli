@@ -1,5 +1,11 @@
 # opentelemetry-cli: human-friendly OpenTelemetry CLI
 
+[![License](https://img.shields.io/github/license/dell/opentelemetry-cli?style=flat-square&color=blue&label=License)](https://github.com/dell/copentelemetry-cli/blob/master/LICENSE)
+[![Pulls](https://img.shields.io/docker/pulls/dellemc/opentelemetry-cli.svg?logo=docker&style=flat-square&label=Pulls)](https://hub.docker.com/r/dellemc/opentelemetry-cli)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Docker](https://github.com/dell/opentelemetry-cli/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/dell/opentelemetry-cli/actions/workflows/docker-publish.yml)
+[![Tests](https://github.com/dell/opentelemetry-cli/actions/workflows/tests.yml/badge.svg)](https://github.com/dell/opentelemetry-cli/actions/workflows/tests.yml)
+
 Provides a CLI for crafting and sending telemetry data over OTLP (OpenTelemetry Line Protocol).
 
 ## Requirements
