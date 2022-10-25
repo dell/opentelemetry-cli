@@ -1,6 +1,6 @@
 # opentelemetry-cli: human-friendly OpenTelemetry CLI
 
-[![License](https://img.shields.io/github/license/dell/opentelemetry-cli?style=flat&color=blue&label=License)](https://github.com/dell/copentelemetry-cli/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/dell/opentelemetry-cli?style=flat&color=blue&label=License)](https://github.com/dell/opentelemetry-cli/blob/main/LICENSE)
 [![Pulls](https://img.shields.io/docker/pulls/dellemc/opentelemetry-cli.svg?logo=docker&style=flat&label=Pulls)](https://hub.docker.com/r/dellemc/opentelemetry-cli)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat)](https://github.com/psf/black)
 [![Docker](https://github.com/dell/opentelemetry-cli/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/dell/opentelemetry-cli/actions/workflows/docker-publish.yml)
