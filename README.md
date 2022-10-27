@@ -35,7 +35,9 @@ Replace `--help` with any `otel` command, without `otel` itself.
 
 ### PyPI
 
-TBD
+```sh
+pip install otel-cli
+```
 
 ## Usage
 
