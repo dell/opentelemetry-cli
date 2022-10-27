@@ -14,7 +14,6 @@ permissions:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     services:
@@ -27,36 +26,8 @@ jobs:
       OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:4317
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-
-    - uses: actions/cache@v3
-      with:
-        path: ~/.local
-        key: poetry-1.1.14-0
-
-    - name: Install poetry
-      uses: snok/install-poetry@v1
-      with:
-        version: 1.1.14
-        virtualenvs-create: true
-        virtualenvs-in-project: true
-
-    - name: cache deps
-      id: cache-deps
-      uses: actions/cache@v3
-      with:
-        path: .venv
-        key: pydeps-${{ hashFiles('**/poetry.lock') }}
-
-    - run: poetry install --no-interaction --no-root
-      if: steps.cache-deps.outputs.cache-hit != 'true'
-
-    - run: poetry install --no-interaction
+    - name: Setup poetry
+      uses: ./.github/workflows/poetry.yml
 
     - name: Test with pytest
       run: poetry run pytest
