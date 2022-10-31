@@ -4,6 +4,7 @@
 [![Pulls](https://img.shields.io/docker/pulls/dell/opentelemetry-cli.svg?logo=docker&style=flat&label=Pulls)](https://hub.docker.com/r/dell/opentelemetry-cli)
 [![PyPI](https://img.shields.io/pypi/v/otel-cli)](https://pypi.org/project/otel-cli/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat)](https://github.com/psf/black)
+[![codecov](https://codecov.io/gh/dell/opentelemetry-cli/branch/main/graph/badge.svg)](https://codecov.io/gh/dell/opentelemetry-cli)
 [![Docker](https://github.com/dell/opentelemetry-cli/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/dell/opentelemetry-cli/actions/workflows/docker-publish.yml)
 [![Tests](https://github.com/dell/opentelemetry-cli/actions/workflows/tests.yml/badge.svg)](https://github.com/dell/opentelemetry-cli/actions/workflows/tests.yml)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat)](https://gitmoji.dev/)
