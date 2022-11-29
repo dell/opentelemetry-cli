@@ -21,6 +21,7 @@
         },
         {
             "matchPackagePatterns": ["opentelemetry-*"],
+            "excludePackageNames": ["ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector"],
             "groupName": "OpenTelemetry libs",
             "groupSlug": "opentelemetry-python"
         }
