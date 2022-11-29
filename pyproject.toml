@@ -24,7 +24,7 @@ otel = "otel_cli.cli:main"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Click = "^7.0"
+Click = ">=7,<9"
 opentelemetry-proto = "~1.13.0"
 opentelemetry-sdk = "~1.13.0"
 opentelemetry-exporter-otlp = "~1.13.0"
