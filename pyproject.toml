@@ -27,7 +27,7 @@ python = "^3.7"
 Click = "^7.0"
 opentelemetry-proto = "~1.13.0"
 opentelemetry-sdk = "~1.13.0"
-opentelemetry-exporter-otlp = "~1.13.0"
+opentelemetry-exporter-otlp = "~1.14.0"
 typing-extensions = {version = "~4.1.1", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]
