@@ -18,6 +18,11 @@
         {
             "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
             "automerge": true
+        },
+        {
+            "matchPackagePatterns": ["opentelemetry-*"],
+            "groupName": "OpenTelemetry libs",
+            "groupSlug": "opentelemetry-python"
         }
     ]
 }
