@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.3.1"></a>
+## 0.3.1 (2022-11-30)
+
+### Fixed
+
+- 💚 Fix release workflow [[a7ba4bf](https://github.com/dell/opentelemetry-cli/commit/a7ba4bfc847f4070453b203b39cf6be15fad68d8)]
+
+
 <a name="0.3.0"></a>
 ## 0.3.0 (2022-11-30)
 
