@@ -6,7 +6,7 @@ from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
 from . import __version__
 from .otel import create_span, create_counter, CounterTypes
-from .utils import parse_attributes, parse_attribute_file
+from .utils import collect_attributes
 from .cli_helpers import attribute_opt, attributefile_opt
 
 
@@ -63,10 +63,7 @@ def generate_span_id(decimal):
 @click.option("--status", type=click.Choice(["UNSET", "OK", "ERROR"]), default="UNSET")
 @click.option("--message")
 def span(span_name, **kwargs):
-    attributes = {}
-    if kwargs["attribute_file"]:
-        attributes.update(parse_attribute_file(kwargs["attribute_file"]))
-    attributes.update(parse_attributes(kwargs["attribute"]))
+    attributes = collect_attributes(kwargs)
     myspan = create_span(
         span_name,
         service_name=kwargs["service"],
@@ -94,10 +91,7 @@ def metric():
 @attribute_opt
 @attributefile_opt
 def counter(**kwargs):
-    attributes = {}
-    if kwargs["attribute_file"]:
-        attributes.update(parse_attribute_file(kwargs["attribute_file"]))
-    attributes.update(parse_attributes(kwargs["attribute"]))
+    attributes = collect_attributes(kwargs)
     create_counter(
         counter_type=CounterTypes.NORMAL,
         counter_name=kwargs.get("counter_name"),
@@ -112,10 +106,7 @@ def counter(**kwargs):
 @attribute_opt
 @attributefile_opt
 def updown(**kwargs):
-    attributes = {}
-    if kwargs["attribute_file"]:
-        attributes.update(parse_attribute_file(kwargs["attribute_file"]))
-    attributes.update(parse_attributes(kwargs["attribute"]))
+    attributes = collect_attributes(kwargs)
     create_counter(
         counter_type=CounterTypes.UPDOWN,
         counter_name=kwargs.get("counter_name"),
