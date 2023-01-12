@@ -105,3 +105,46 @@ def test_send_updown_counter_negative():
     runner = CliRunner()
     result = runner.invoke(cli.main, args=["metric", "updown", "my-counter", "-1"])
     assert result.exit_code == 0
+
+
+def test_send_counter_attribute_file(tmp_path):
+    """Test sending a counter with multiple attributes from a file"""
+    attribute_content = "\n".join(("test.foo=1", "test.bar=baz"))
+    attribute_file = tmp_path / "attributes.lst"
+    attribute_file.write_text(attribute_content)
+    runner = CliRunner()
+    result = runner.invoke(
+        cli.main,
+        args=[
+            "metric",
+            "counter",
+            "my-counter",
+            "-A",
+            str(attribute_file),
+        ],
+    )
+    assert result.exit_code == 0
+
+
+def test_send_counter_attribute_file_and_cmdline(tmp_path):
+    """
+    Test sending a counter with multiple attributes from a file, in addition to
+    attributes provided in the command line.
+    """
+    attribute_content = "\n".join(("test.foo=1", "test.bar=baz"))
+    attribute_file = tmp_path / "attributes.lst"
+    attribute_file.write_text(attribute_content)
+    runner = CliRunner()
+    result = runner.invoke(
+        cli.main,
+        args=[
+            "metric",
+            "counter",
+            "my-counter",
+            "-A",
+            str(attribute_file),
+            "-a",
+            "test.foo=2",
+        ],
+    )
+    assert result.exit_code == 0
