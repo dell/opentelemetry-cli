@@ -92,3 +92,19 @@ def parse_attribute_file(filename: str) -> Mapping[str, Union[str, int, list, bo
     with open(filename, "r") as attribute_file:
         attributes = parse_attributes(attribute_file.readlines())
     return attributes
+
+
+def collect_attributes(
+    options: Mapping[str, Union[str, int, list, bool]]
+) -> Mapping[str, Union[str, int, list, bool]]:
+    """
+    Parse attributes from the CLI's -a and -A options.
+    Returns a dictionary of attributes, where commandline attributes (-a) take
+    precedence over attributes parsed from a file (-A).
+    """
+    attributes = {}
+    if options.get("attribute_file"):
+        attributes.update(parse_attribute_file(options["attribute_file"]))
+    if options.get("attribute"):
+        attributes.update(parse_attributes(options["attribute"]))
+    return attributes
