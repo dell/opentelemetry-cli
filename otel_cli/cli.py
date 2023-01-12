@@ -6,8 +6,8 @@ from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
 from . import __version__
 from .otel import create_span, create_counter, CounterTypes
-from .utils import parse_attributes
-from .cli_helpers import attribute_opt
+from .utils import parse_attributes, parse_attribute_file
+from .cli_helpers import attribute_opt, attributefile_opt
 
 
 @click.group()
@@ -59,11 +59,14 @@ def generate_span_id(decimal):
 @click.option("--span-id", help="Manually set span ID")
 @click.option("--trace-id", help="Manually set trace ID")
 @attribute_opt
+@attributefile_opt
 @click.option("--status", type=click.Choice(["UNSET", "OK", "ERROR"]), default="UNSET")
 @click.option("--message")
 def span(span_name, **kwargs):
-    # Parse attribute to dict
-    attributes = parse_attributes(kwargs["attribute"])
+    attributes = {}
+    if kwargs["attribute_file"]:
+        attributes.update(parse_attribute_file(kwargs["attribute_file"]))
+    attributes.update(parse_attributes(kwargs["attribute"]))
     myspan = create_span(
         span_name,
         service_name=kwargs["service"],
@@ -89,9 +92,12 @@ def metric():
 @click.argument("counter_name")
 @click.argument("amount", type=int, default=1)
 @attribute_opt
+@attributefile_opt
 def counter(**kwargs):
-    # Parse attribute to dict
-    attributes = parse_attributes(kwargs["attribute"])
+    attributes = {}
+    if kwargs["attribute_file"]:
+        attributes.update(parse_attribute_file(kwargs["attribute_file"]))
+    attributes.update(parse_attributes(kwargs["attribute"]))
     create_counter(
         counter_type=CounterTypes.NORMAL,
         counter_name=kwargs.get("counter_name"),
@@ -104,9 +110,12 @@ def counter(**kwargs):
 @click.argument("counter_name")
 @click.argument("amount", type=int, default=1)
 @attribute_opt
+@attributefile_opt
 def updown(**kwargs):
-    # Parse attribute to dict
-    attributes = parse_attributes(kwargs["attribute"])
+    attributes = {}
+    if kwargs["attribute_file"]:
+        attributes.update(parse_attribute_file(kwargs["attribute_file"]))
+    attributes.update(parse_attributes(kwargs["attribute"]))
     create_counter(
         counter_type=CounterTypes.UPDOWN,
         counter_name=kwargs.get("counter_name"),
