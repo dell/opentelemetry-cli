@@ -38,7 +38,7 @@ _attribute_casting = {
 }
 
 
-def parse_attributes(attrs: Iterable[str]) -> Mapping[str, Union[str, int, list]]:
+def parse_attributes(attrs: Iterable[str]) -> Mapping[str, Union[str, int, list, bool]]:
     """
     Attempt to parse attributes in a given list `attrs`.
     Special handling is done for attributes which begin with these prefixes:
@@ -85,4 +85,10 @@ def parse_attributes(attrs: Iterable[str]) -> Mapping[str, Union[str, int, list]
             [cast_function(item) for item in value.split(value_separator)]
         )
 
+    return attributes
+
+
+def parse_attribute_file(filename: str) -> Mapping[str, Union[str, int, list, bool]]:
+    with open(filename, "r") as attribute_file:
+        attributes = parse_attributes(attribute_file.readlines())
     return attributes
