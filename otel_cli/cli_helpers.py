@@ -22,3 +22,13 @@ attribute_opt = click.option(
     "    'int[sep=;]:my-array=1;2;3;4'"
     "    'str[sep=:]:path-array=/usr/bin:/bin'",
 )
+
+attributefile_opt = click.option(
+    "-A",
+    "--attribute-file",
+    help="Load attributes from a file. Each line in the file specifies one attribute,"
+    "and the format is the same as the one provided by the -a flag of the command"
+    "line."
+    "Attributes provided by the -a flag take precedence over attributes defined in"
+    "this file.",
+)
