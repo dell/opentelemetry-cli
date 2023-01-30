@@ -1,5 +1,40 @@
 # Changelog
 
+<a name="0.4.0"></a>
+## 0.4.0 (2023-01-30)
+
+### Added
+
+- ✅ Add tests fo CLI invocation with attribute file [[177133b](https://github.com/dell/opentelemetry-cli/commit/177133bc25950e4dfff015861ff5d85f7b91ffb7)]
+- ✨ Parse attributes from a file using the -A option [[fab19a3](https://github.com/dell/opentelemetry-cli/commit/fab19a35b40aca4de8e9075c5be345ccd0bb7ff2)]
+- ✅ Add test for reading attribute file [[bc8ecc4](https://github.com/dell/opentelemetry-cli/commit/bc8ecc44e3ee40853f1e9773fa38989b9fdc0d27)]
+- ✨ Add util function to load attributes from file [[4fb3da1](https://github.com/dell/opentelemetry-cli/commit/4fb3da1012c21938677501eb5015de47aa0c8423)]
+
+### Changed
+
+- ⬆️ Upgrade docker/setup-buildx-action action to v2.3.0 [[46f6fc7](https://github.com/dell/opentelemetry-cli/commit/46f6fc7b29384053f77cef440055a836648012e0)]
+- ⬆️ Upgrade ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector Docker tag to v0.69.0 [[2980f5a](https://github.com/dell/opentelemetry-cli/commit/2980f5ad6a9b53df54661aa12e8325d4c698534f)]
+- 📌 Pin github actions to releases, not main branch [[a605ca3](https://github.com/dell/opentelemetry-cli/commit/a605ca33cadb741590b51407211c2ba750861355)]
+- ⬆️ Upgrade docker/metadata-action digest to 507c2f2 [[255d6a9](https://github.com/dell/opentelemetry-cli/commit/255d6a93fe9a8c80db651e160b34f5937efd3cfa)]
+- 🎨 Move attr logic to utils.collect_attributes [[9cb091b](https://github.com/dell/opentelemetry-cli/commit/9cb091be7635b45963fe9590c6dad7fc58d68562)]
+- ⬆️ Upgrade ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector Docker tag to v0.68.0 [[00194a5](https://github.com/dell/opentelemetry-cli/commit/00194a5760878f3476406e7ebc931ff22d7e8644)]
+- ⬆️ Upgrade docker/metadata-action digest to c98ac5e [[e485da8](https://github.com/dell/opentelemetry-cli/commit/e485da8cff532e0a22aae3cf69bfba3eddddee6e)]
+- ⬆️ Upgrade docker/setup-buildx-action digest to c252a3b [[1bb6b9f](https://github.com/dell/opentelemetry-cli/commit/1bb6b9ffc6fc2da1c8b70b00eec8f4a288c355af)]
+- ⬆️ Upgrade docker/login-action digest to bc135a1 [[3421690](https://github.com/dell/opentelemetry-cli/commit/3421690706b653079728e14d5aca20e044897ec6)]
+- ⬆️ Upgrade docker/build-push-action digest to 4eb68bb [[7e16682](https://github.com/dell/opentelemetry-cli/commit/7e1668250486293e33eaa49e5cbd1f2c87512612)]
+- ⬆️ Upgrade python Docker tag to v3.11.1 [[d8d78a0](https://github.com/dell/opentelemetry-cli/commit/d8d78a07a2fb34a4a1e8cc80bf18bac27b018a07)]
+- ⬆️ Upgrade ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector Docker tag to v0.67.0 [[e543f75](https://github.com/dell/opentelemetry-cli/commit/e543f753bfc00d89c2772d1482840a18f1bc42e4)]
+
+### Fixed
+
+- 💚 Enable workflow_call on docker-publish action [[7fb71a1](https://github.com/dell/opentelemetry-cli/commit/7fb71a1e60bb2d5700027eebcccc38141303c5e7)]
+
+### Miscellaneous
+
+-  👷 Upload coverage to codecov [[80890bc](https://github.com/dell/opentelemetry-cli/commit/80890bc94624213b61f28cd8d0462225da038147)]
+-  👷 Allow release workflow to be called manually [[c3c2978](https://github.com/dell/opentelemetry-cli/commit/c3c297816820471d71f0e11de93c837dfee8aa7d)]
+
+
 <a name="0.3.1"></a>
 ## 0.3.1 (2022-11-30)
 

@@ -2,4 +2,4 @@
 
 __author__ = """Moshi Binyamini"""
 __email__ = "moshi.binyamini@dell.com"
-__version__ = "0.3.1"
+__version__ = "0.4.0"
