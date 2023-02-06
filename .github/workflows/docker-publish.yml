@@ -49,7 +49,7 @@ jobs:
         uses: docker/metadata-action@v4.3.0
         with:
           images: |
-            dell/opentelemetry-cli
+            ${{ github.repository }}
             ghcr.io/${{ github.repository }}
 
       # Build and push Docker image with Buildx (don't push on PR)
