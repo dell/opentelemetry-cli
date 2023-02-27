@@ -21,7 +21,7 @@ There are several ways of running this CLI.
 ### Docker
 
 ```sh
-docker pull opentelemetry-cli:<version>
+docker pull dell/opentelemetry-cli:<version>
 ```
 
 You can specify a version like `0.2.0` or use `latest` to get the most up-to-date version.
