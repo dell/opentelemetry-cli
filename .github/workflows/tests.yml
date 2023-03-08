@@ -23,7 +23,7 @@ jobs:
 
     services:
       otelcol:
-        image: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector:0.72.0
+        image: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector:0.73.0
         ports:
           - 4317:4317
 
