@@ -25,5 +25,9 @@
             "groupName": "OpenTelemetry libs",
             "groupSlug": "opentelemetry-python"
         }
-    ]
+    ],
+    "osvVulnerabilityAlerts": true,
+    "vulnerabilityAlerts": {
+      "enabled": true
+    }
 }
