@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/MoshiBin/otel-cli/issues.
+Report bugs at https://github.com/dell/opentelemetry-cli/issues.
 
 If you are reporting a bug, please include:
 
