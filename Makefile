@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8 lint/black
+.PHONY: clean clean-build clean-pyc clean-test coverage dist help install lint lint/flake8 lint/black
 .DEFAULT_GOAL := help
 SHELL=/bin/bash
 
@@ -67,17 +67,6 @@ coverage: test ## check code coverage quickly with the default Python
 	poetry run coverage report -m
 	poetry run coverage html
 	$(BROWSER) htmlcov/index.html
-
-docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/otel-cli.rst
-	rm -f docs/modules.rst
-	poetry run sphinx-apidoc -o docs/ otel_cli
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
-	$(BROWSER) docs/_build/html/index.html
-
-servedocs: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
 	poetry publish
