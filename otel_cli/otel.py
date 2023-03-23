@@ -4,6 +4,7 @@ from enum import Enum
 from typing import Optional, Mapping, Union
 from .compat import time_ns
 from opentelemetry import trace
+from opentelemetry.sdk.metrics.view import View, LastValueAggregation
 from opentelemetry.sdk.trace import Span
 from opentelemetry.trace import SpanKind
 from opentelemetry.context import Context
@@ -118,3 +119,33 @@ def create_counter(
     counter = create_counter(name=counter_name, unit=unit, description=description)
     counter.add(amount=value, attributes=attributes)
     return counter
+
+
+def create_histogram(
+    histogram_name: str,
+    value: Union[int, float],
+    unit: str = "",
+    description: str = "",
+    attributes: Mapping[str, Union[int, str, float, bool]] = None,
+    service_name: str = "otel-cli-python",
+    service_version: str = __version__,
+):
+    resource = Resource.create(
+        attributes={
+            "service.name": service_name,
+            "service.version": service_version,
+        }
+    )
+    exporter = OTLPMetricExporter()
+    reader = PeriodicExportingMetricReader(exporter)
+    provider = MeterProvider(
+        metric_readers=[reader],
+        resource=resource,
+        views=[View(instrument_name="*", aggregation=LastValueAggregation())],
+    )
+    meter = provider.get_meter("otel-cli-python", __version__)
+    histogram = meter.create_histogram(
+        name=histogram_name, unit=unit, description=description
+    )
+    histogram.record(amount=value, attributes=attributes)
+    return histogram

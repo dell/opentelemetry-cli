@@ -5,7 +5,7 @@ import click
 from opentelemetry.sdk.trace.id_generator import RandomIdGenerator
 
 from . import __version__
-from .otel import create_span, create_counter, CounterTypes
+from .otel import create_span, create_counter, CounterTypes, create_histogram
 from .utils import collect_attributes
 from .cli_helpers import attribute_opt, attributefile_opt
 
@@ -111,6 +111,22 @@ def updown(**kwargs):
         counter_type=CounterTypes.UPDOWN,
         counter_name=kwargs.get("counter_name"),
         value=kwargs.get("amount"),
+        attributes=attributes,
+    )
+
+
+@metric.command()
+@click.argument("histogram_name")
+@click.argument("value", type=int)
+@click.option("-u", "--unit", type=str, default="")
+def histogram(histogram_name, value, **kwargs):
+    unit = kwargs.get("unit", "")
+    print(f"name: {histogram_name} | value: {value} | unit: {unit}")
+    attributes = collect_attributes(kwargs)
+    create_histogram(
+        histogram_name=histogram_name,
+        value=value,
+        unit=unit,
         attributes=attributes,
     )
 
