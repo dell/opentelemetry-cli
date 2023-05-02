@@ -1,0 +1,16 @@
+site_name: OpenTelemetry-CLI
+theme:
+  name: readthedocs
+  highlightjs: true
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+      toc_depth: 2
+repo_url: https://github.com/dell/opentelemetry-cli
+nav:
+  - index.md
+  - installation.md
+  - attributes.md
