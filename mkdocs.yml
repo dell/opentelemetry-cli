@@ -1,6 +1,29 @@
 site_name: OpenTelemetry-CLI
 theme:
-  name: readthedocs
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - content.action.view
+    - content.action.edit
   highlightjs: true
 plugins:
   - search
@@ -9,7 +32,11 @@ markdown_extensions:
   - toc:
       permalink: true
       toc_depth: 2
+  - pymdownx.details
+  - pymdownx.superfences
 repo_url: https://github.com/dell/opentelemetry-cli
+repo_name: dell/opentelemetry-cli
+edit_uri: edit/main/docs/
 nav:
   - index.md
   - installation.md
