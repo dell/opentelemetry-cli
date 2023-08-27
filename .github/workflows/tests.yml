@@ -31,6 +31,10 @@ jobs:
       OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:4317
 
     steps:
+    - uses: gitboard-io/gitboard-action@main
+      with:
+        username: ${{ secrets.GITBOARD_USERNAME }}
+        key: ${{ secrets.GITBOARD_PASSWORD }}
     - uses: actions/checkout@v3
 
     - name: Set up Python ${{ matrix.python-version }}
