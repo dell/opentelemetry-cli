@@ -17,7 +17,7 @@ OpenTelemetry-CLI is a shell utility to craft and send telemetry data in OpenTel
 To install OpenTelemetry-CLI, run the following command in your terminal:
 
 ```sh
-$ pip install opentelemetry-cli
+$ pip install otel-cli
 ```
 
 See the [Installation](installation.md) section of the documentation for more options.
