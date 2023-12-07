@@ -3,7 +3,7 @@
 ## pip
 
 ```sh
-$ pip install --user opentelemetry-cli
+$ pip install --user otel-cli
 # pip installs by default to ~/.local/bin - this location must be in your PATH in order to run otel properly.
 $ otel --help
 ```
@@ -13,7 +13,7 @@ $ otel --help
 [pipx](https://pypa.github.io/pipx/) is a tool that lets you install Python applications in isolated environments, without polluting your main environment.
 
 ```sh
-$ pipx install opentelemetry-cli
+$ pipx install otel-cli
 $ otel --help
 ```
 
