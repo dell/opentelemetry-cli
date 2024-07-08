@@ -13,7 +13,7 @@ metadata:
     - traces
     - metrics
     - spans
-    - OpenTelemetry
+    - opentelemetry
   annotations:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: dell/opentelemetry-cli
