@@ -29,6 +29,6 @@ metadata:
       icon: 'help'
 spec:
   type: service
-  lifecycle: experimental
+  lifecycle: production
   owner: user:default/moshi.binyamini
   visibility: all
