@@ -1,0 +1,34 @@
+# nonk8s
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: opentelemetry-cli
+  description: "CLI for OpenTelemetry Traces and Metrics in Python"
+  tags:
+    - python
+    - poetry
+    - cli
+    - otel
+    - otlp
+    - traces
+    - metrics
+    - spans
+    - OpenTelemetry
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: dell/opentelemetry-cli
+  links:
+    - url: 'https://python-poetry.org/'
+      title: 'Poetry'
+      icon: 'web'
+    - url: 'https://opentelemetry.io/'
+      title: 'OpenTelemetry'
+      icon: 'github'
+    - url: 'https://github.com/dell/opentelemetry-cli/issues'
+      title: 'Contact Technical Support'
+      icon: 'help'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: user:default/moshi.binyamini
+  visibility: all
